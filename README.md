@@ -2,6 +2,45 @@
 
 Bu proje, araç kiralama işlemlerini yönetmek için geliştirilmiş bir masaüstü uygulamasıdır.
 
+## Sistem Mimarisi
+
+```
++-------------------+     +-------------------+     +------------------+
+|       Brand       |     |       Model      |     |        Car      |
++-------------------+     +-------------------+     +------------------+
+| -id: int         |     | -id: int         |     | -id: int        |
+| -name: String    |     | -brand_id: int   |     | -model_id: int  |
++-------------------+     | -name: String    |     | -plate: String  |
+| +getById()       |     | -type: Type      |     | -color: Color   |
+| +save()          |     | -year: String    |     | -km: int        |
+| +update()        |     | -fuel: Fuel      |     +------------------+
+| +delete()        |     | -gear: Gear      |     | +getById()      |
++-------------------+     +-------------------+     | +save()         |
+         ^               | +getById()       |     | +update()       |
+         |               | +save()          |     | +delete()       |
+         |               | +update()        |     +------------------+
+         |               | +delete()        |            ^
+         |               +-------------------+            |
+         |                        ^                      |
+         |                        |                      |
+         +------------------------+----------------------+
+                                 |
+                        +-------------------+
+                        |       Book       |
+                        +-------------------+
+                        | -id: int         |
+                        | -car_id: int     |
+                        | -name: String    |
+                        | -strt_date: Date |
+                        | -fnsh_date: Date |
+                        | -price: int      |
+                        +-------------------+
+                        | +save()          |
+                        | +update()        |
+                        | +delete()        |
+                        +-------------------+
+```
+
 ## Özellikler
 
 - Marka ve model yönetimi
