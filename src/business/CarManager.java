@@ -2,14 +2,9 @@ package business;
 import core.Helper;
 import dao.BookDao;
 import dao.CarDao;
-import dao.ModelDao;
 import entity.Book;
-import entity.Brand;
 import entity.Car;
 import entity.Model;
-import org.postgresql.jdbc2.ArrayAssistant;
-
-import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -56,7 +51,6 @@ public class CarManager {
             return false ;
         }
         return this.carDao.save(car);
-
     }
     public boolean update (Car car){
         if(this.getById(car.getId())==null){

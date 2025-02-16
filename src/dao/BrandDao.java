@@ -2,7 +2,6 @@ package dao;
 
 import core.Db;
 import entity.Brand;
-
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -56,18 +55,15 @@ public BrandDao(){
         return obj;
     }
 
-    public boolean save(Brand brand){
-    String query="INSERT INTO public.brand(brand_name) VALUES (?)";
-    try{
-        PreparedStatement pr = this.con.prepareStatement(query); {
-            pr.setString(1,brand.getName());
+    public boolean save(Brand brand) {
+        String query = "INSERT INTO public.brand(brand_name) VALUES (?)";
+        try (PreparedStatement pr = this.con.prepareStatement(query)) {
+            pr.setString(1, brand.getName());
             return pr.executeUpdate() != -1;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false; // Hata durumunda false dön
         }
-    }catch (SQLException e){
-        e.printStackTrace();
-        return true;
-    }
-
     }
     public boolean update(Brand brand){
         String query="UPDATE public.brand SET brand_name = ? WHERE brand_id = ?";

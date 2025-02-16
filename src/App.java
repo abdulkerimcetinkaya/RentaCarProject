@@ -1,19 +1,18 @@
-import business.UserManager;
 import core.Db;
 import core.Helper;
-import view.AdminView;
-import view.LoginView;
-
 import java.sql.Connection;
+import view.LoginView;
 
 public class App {
     public static void main(String[] args) {
-
-        //Connection conn = Db.getInstance();
-        //Helper.setTheme();
-        //LoginView loginView = new LoginView();
-        UserManager userManager  =new UserManager();
-        AdminView adminView=new AdminView(userManager.findByLogin("admin","1234"));
-
+        Helper.setTheme();
+        try {
+            // Test veritabanı bağlantısı
+            Connection conn = Db.getInstance();
+            // Login ekranını aç
+            LoginView loginView = new LoginView();
+        } catch (RuntimeException e) {
+            Helper.showMsg("Sistem başlatılamadı: " + e.getMessage());
+        }
     }
 }

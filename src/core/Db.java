@@ -15,9 +15,9 @@ public class Db {
 
     private Db(){
         try {
-            this.connection= DriverManager.getConnection(DB_URL,DB_USERNAME,DB_PASS);
+            this.connection = DriverManager.getConnection(DB_URL,DB_USERNAME,DB_PASS);
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            throw new RuntimeException("Veritabanı bağlantısı kurulamadı: " + e.getMessage());
         }
 
 
@@ -26,17 +26,15 @@ public class Db {
         return connection;
     }
     public static Connection getInstance (){
-
         try {
-            if (instance==null || instance.getConnection().isClosed()){
+            if (instance == null || instance.getConnection().isClosed()) {
                 instance = new Db();
-
             }
+            return instance.getConnection();
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            throw new RuntimeException("Veritabanı bağlantısı alınamadı: " + e.getMessage());
         }
-        return instance.getConnection();
-        }
+    }
 
 
 }

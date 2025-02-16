@@ -2,8 +2,6 @@ package dao;
 
 import core.Db;
 import entity.Car;
-import entity.Model;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -24,23 +22,18 @@ public class CarDao {
     }
 
     public Car getById(int id) {
-        Car obj = null;
         String query = "SELECT * FROM public.car WHERE car_id = ?";
-        try {
-            PreparedStatement pr = con.prepareStatement(query);
+        try (PreparedStatement pr = con.prepareStatement(query)) {
             pr.setInt(1, id);
-            ResultSet rs = pr.executeQuery();
-            if (rs.next()) {
-                obj = this.match(rs);
-
-
+            try (ResultSet rs = pr.executeQuery()) {
+                if (rs.next()) {
+                    return this.match(rs);
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-        return obj;
-
+        return null;
     }
 
     public ArrayList<Car> findAll() {

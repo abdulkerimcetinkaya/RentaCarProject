@@ -4,10 +4,9 @@ import business.BookManager;
 import core.Helper;
 import entity.Book;
 import entity.Car;
-
-import javax.swing.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import javax.swing.*;
 
 public class BookingView extends Layout {
     private JPanel container;
@@ -27,7 +26,7 @@ public class BookingView extends Layout {
     private BookManager bookManager;
 
 
-    public BookingView(Car selectedCar,String strt_date , String fnsh_date){
+    public BookingView(Car selectedCar, String strt_date, String fnsh_date) {
         this.bookManager =new BookManager();
         this.car=selectedCar;
 
@@ -43,12 +42,12 @@ public class BookingView extends Layout {
         this.fld_book_strt_date.setText(strt_date);
         this.fld_book_fnsh_date.setText(fnsh_date);
 
-        this.fld_book_name.setText("Derya Deniz");
-        this.fld_book_idno.setText("1234123411");
-        this.fld_book_mail.setText("test@patika.dev");
-        this.fld_book_mpno.setText("05501234567");
-        this.fld_book_prc.setText("2350");
-        this.txta_book_note.setText("Not bırakıldı");
+        this.fld_book_name.setText("");
+        this.fld_book_idno.setText("");
+        this.fld_book_mail.setText("");
+        this.fld_book_mpno.setText("");
+        this.fld_book_prc.setText("");
+        this.txta_book_note.setText("");
 
 
         btn_book_save.addActionListener(e -> {

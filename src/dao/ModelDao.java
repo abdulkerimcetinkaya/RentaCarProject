@@ -1,9 +1,7 @@
 package dao;
 
 import core.Db;
-import entity.Brand;
 import entity.Model;
-
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -36,10 +34,15 @@ public class ModelDao {
 
     }
     public ArrayList<Model> getByListBrandId(int brandId) {
-
-        String sql = "SELECT * FROM public.model WHERE model_brand_id = " +brandId;
-        return this.selectByQuery(sql);
-
+        String sql = "SELECT * FROM public.model WHERE model_brand_id = ?";
+        try {
+            PreparedStatement pr = con.prepareStatement(sql);
+            pr.setInt(1, brandId);
+            return this.selectByQuery(pr);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
     }
 
     public ArrayList<Model> findAll() {
@@ -62,6 +65,15 @@ public class ModelDao {
         return modelList;
     }
 
+    private ArrayList<Model> selectByQuery(PreparedStatement pr) throws SQLException {
+        ArrayList<Model> modelList = new ArrayList<>();
+        ResultSet rs = pr.executeQuery();
+        while (rs.next()) {
+            modelList.add(this.match(rs));
+        }
+        return modelList;
+    }
+
     public boolean save(Model model) {
         String query = "INSERT INTO public.model" +
                 "(" +
@@ -69,7 +81,7 @@ public class ModelDao {
                 "model_name," +
                 "model_type," +
                 "model_year," +
-                "model_fueL," +
+                "model_fuel," +
                 "model_gear" +
                 ")" +
                 "VALUES (?,?,?,?,?,?)";
